@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "Installing dependencies..."
+  pre_build:
+    commands:
+      - echo "Running pre-build checks..."
+      - test -f index.html && echo "index.html found!" || exit 1
+  build:
+    commands:
+      - echo "Building application..."
+      - echo "Build ID $CODEBUILD_BUILD_ID"
+      - echo "Build complete!"
+  post_build:
+    commands:
+      - echo "Deployment ready!"
+
+artifacts:
+  files:
+    - index.html
+    - appspec.yml
+  discard-paths: yes
